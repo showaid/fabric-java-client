@@ -1,0 +1,215 @@
+{
+  "name": "Trade-Network",
+  "x-type": "hlfv1",
+  "description": "Sample Trade Network",
+  "version": "1.0",
+  "client": {
+    "organization": "exporterorg",
+    "connection": {
+        "timeout": {
+            "peer": {
+                "endorser": "3000",
+                "eventHub": "3000",
+                "eventReg": "3000"
+            },
+            "orderer": "3000"
+        }
+    },
+    "x-organizationName": "Cyberlogitec"
+  },
+  "channels": {
+    "tradechannel": {
+      "orderers": [
+        "orderer.trade.com"
+      ],
+      "peers": {
+        "peer0.exporterorg.trade.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer0.importerorg.trade.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer0.regulatororg.trade.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        },
+        "peer0.carrierorg.trade.com": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true
+        }
+      },
+      "chaincodes": [
+        "tradecc:v0"
+      ]
+    }
+  },
+  "organizations": {
+    "exporterorg": {
+      "mspid": "ExporterOrgMSP",
+      "peers": [
+        "peer0.exporterorg.trade.com"
+      ],
+      "certificateAuthorities": [
+        "ca-exporterorg"
+      ]
+    },
+    "importerorg": {
+      "mspid": "ImporterOrgMSP",
+      "peers": [
+        "peer0.importerorg.trade.com"
+      ],
+      "certificateAuthorities": [
+        "ca-importerorg"
+      ]
+    },
+    "regulatororg": {
+      "mspid": "RegulatorOrgMSP",
+      "peers": [
+        "peer0.regulatororg.trade.com"
+      ],
+      "certificateAuthorities": [
+        "ca-regulatororg"
+      ]
+    },
+    "carrierorg": {
+      "mspid": "CarrierOrgMSP",
+      "peers": [
+        "peer0.carrierorg.trade.com"
+      ],
+      "certificateAuthorities": [
+        "ca-carrierorg"
+      ]
+    }
+  },
+  "orderers": {
+    "orderer.trade.com": {
+      "mspid": "TradeOrdererMSP",
+      "url": "grpcs://orderer.trade.com:7050",
+      "grpcOptions": {
+        "ssl-target-name-override": "orderer.trade.com",
+        "grpc-max-send-message-length": 15
+      },
+      "tlsCACerts": {
+        "path": "./network/crypto-config/ordererOrganizations/trade.com/orderers/orderer.trade.com/msp/tlscacerts/tlsca.trade.com-cert.pem"
+      }
+    }
+  },
+  "peers": {
+    "peer0.exporterorg.trade.com": {
+      "url": "grpcs://peer0.exporterorg.trade.com:7051",
+      "eventUrl": "grpcs://peer0.exporterorg.trade.com:7053",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.exporterorg.trade.com"
+      },
+      "tlsCACerts": {
+        "path": "./network/crypto-config/peerOrganizations/exporterorg.trade.com/peers/peer0.exporterorg.trade.com/msp/tlscacerts/tlsca.exporterorg.trade.com-cert.pem"
+      }
+    },
+    "peer0.importerorg.trade.com": {
+      "url": "grpcs://peer0.importerorg.trade.com:8051",
+      "eventUrl": "grpcs://peer0.importerorg.trade.com:8053",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.importerorg.trade.com"
+      },
+      "tlsCACerts": {
+        "path": "./network/crypto-config/peerOrganizations/importerorg.trade.com/peers/peer0.importerorg.trade.com/msp/tlscacerts/tlsca.importerorg.trade.com-cert.pem"
+      }
+    },
+    "peer0.carrierorg.trade.com": {
+      "url": "grpcs://peer0.carrierorg.trade.com:9051",
+      "eventUrl": "grpcs://peer0.carrierorg.trade.com:9053",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.carrierorg.trade.com"
+      },
+      "tlsCACerts": {
+        "path": "./network/crypto-config/peerOrganizations/carrierorg.trade.com/peers/peer0.carrierorg.trade.com/msp/tlscacerts/tlsca.carrierorg.trade.com-cert.pem"
+      }
+    },
+    "peer0.regulatororg.trade.com": {
+      "url": "grpcs://peer0.regulatororg.trade.com:10051",
+      "eventUrl": "grpcs://peer0.regulatororg.trade.com:10053",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.regulatororg.trade.com"
+      },
+      "tlsCACerts": {
+        "path": "./network/crypto-config/peerOrganizations/regulatororg.trade.com/peers/peer0.regulatororg.trade.com/msp/tlscacerts/tlsca.regulatororg.trade.com-cert.pem"
+      }
+    }
+  },
+  "certificateAuthorities": {
+    "ca-exporterorg": {
+      "url": "https://ca.exporterorg.trade.com:7054",
+      "httpOptions": {
+        "verify": true
+      },
+      "tlsCACerts": {
+        "path": "./network/crypto-config/peerOrganizations/exporterorg.trade.com/ca/ca.exporterorg.trade.com-cert.pem"
+      },
+      "registrar": [
+        {
+          "enrollId": "admin",
+          "enrollSecret": "adminpw"
+        }
+      ],
+      "caName": "ca-exporterorg"
+    },
+    "ca-importerorg": {
+      "url": "https://ca.importerorg.trade.com:8054",
+      "httpOptions": {
+        "verify": true
+      },
+      "tlsCACerts": {
+        "path": "./network/crypto-config/peerOrganizations/importerorg.trade.com/ca/ca.importerorg.trade.com-cert.pem"
+      },
+      "registrar": [
+        {
+          "enrollId": "admin",
+          "enrollSecret": "adminpw"
+        }
+      ],
+      "caName": "ca-importerorg"
+    },
+    "ca-carrierorg": {
+      "url": "https://ca.carrierorg.trade.com:9054",
+      "httpOptions": {
+        "verify": true
+      },
+      "tlsCACerts": {
+        "path": "./network/crypto-config/peerOrganizations/carrierorg.trade.com/ca/ca.carrierorg.trade.com-cert.pem"
+      },
+      "registrar": [
+        {
+          "enrollId": "admin",
+          "enrollSecret": "adminpw"
+        }
+      ],
+      "caName": "ca-carrierorg"
+    },
+    "ca-regulatororg": {
+      "url": "https://ca.regulatororg.trade.com:10054",
+      "httpOptions": {
+        "verify": true
+      },
+      "tlsCACerts": {
+        "path": "./network/crypto-config/peerOrganizations/regulatororg.trade.com/ca/ca.regulatororg.trade.com-cert.pem"
+      },
+      "registrar": [
+        {
+          "enrollId": "admin",
+          "enrollSecret": "adminpw"
+        }
+      ],
+      "caName": "ca-regulatororg"
+    }
+  }
+}

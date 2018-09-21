@@ -99,7 +99,7 @@ public class CAClientWrapper {
             Logger.getLogger(CAClientWrapper.class.getName()).log(Level.WARNING, "UserName - " + userName + "  is already registered. Therefore skipping..... registeration");
             return;
         }
-        RegistrationRequest regRequest = new RegistrationRequest(userName, org);
+        RegistrationRequest regRequest = new RegistrationRequest(userName, "org1.department1");
         UserContext registrarContext = Util.readUserContext(org, registrarAdmin);
         if (registrarContext == null) {
             Logger.getLogger(CAClientWrapper.class.getName()).log(Level.SEVERE, "Registrar " + registrarAdmin + " is not enrolled. Enroll Registrar.");
@@ -111,7 +111,7 @@ public class CAClientWrapper {
 
         userContext = new UserContext();
         userContext.setMspId(LoadConnectionProfile.getOrgInfo(org).getMspId());
-        userContext.setAffiliation(org);
+        userContext.setAffiliation("org1.department1");
         userContext.setEnrollment(enrollment);
         userContext.setName(userName);
 

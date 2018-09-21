@@ -22,7 +22,7 @@ public class LoadConnectionProfile {
      */
     private LoadConnectionProfile() throws Exception {
 
-        config = NetworkConfig.fromJsonFile(new File("D:\\Fabric-Java-Client\\src\\main\\java\\com\\fabric\\config\\network-config.json"));
+        config = NetworkConfig.fromJsonFile(new File("network\\config\\network-config.json"));
 
     }
 
